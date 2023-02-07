@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Plot{% endblock title %}
+
+{% block style %} 
+
+
+{% endblock %}
+
+{% block body %}
+<!-- plot.html -->
+{% comment %} <img src="data:image/png;base64,{{ graphic }}" /> {% endcomment %}
+{% load static %}
+
+<img src="/media/plot1.png" alt="plot1">  
+<img src="/media/plot2.png" alt="plot2">  
+{% endblock %}

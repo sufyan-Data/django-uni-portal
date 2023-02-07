@@ -1,0 +1,46 @@
+this is function:
+  students = Student.objects.all()
+    student_data = {
+        'student_name': [student.student_name for student in students],
+        'student_batch': [student.student_batch for student in students],
+        'student_enrol_no': [student.student_enrol_no for student in students],
+        'pub_date': [student.pub_date for student in students]
+    }
+    df = pd.DataFrame(student_data)
+    
+    # Use Seaborn to visualize the data
+    plt.figure(figsize=(10, 5))
+    sns.countplot(x='student_batch', data=df)
+    
+    # Save the plot to an image file
+    plot_path = os.path.join(settings.STATIC_ROOT, 'plot.png')
+    plt.savefig(plot_path)
+    
+    return render(request, 'plot.html')
+
+This is my template code:
+<img src="/staticfiles/plot.png" alt="plot">
+
+The image is not shown on the web page and shows the alt message and I already configured the static correctly in my setting.py
+
+this my setting.py configuration
+
+STATIC_URL = '/static/'
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Add Manually
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+There are a few things that you can try to resolve the issue with the image not being displayed on your web page:
+
+Check if the path to the image file is correct in your template. The path in your template is /staticfiles/plot.png, but your STATIC_ROOT in settings.py is set to os.path.join(BASE_DIR, 'staticfiles'). Ensure that these paths match.
+
+Verify that the image file has been correctly saved in the STATIC_ROOT directory. You can use the command line to navigate to the directory and check if the file is present.
+
+Make sure that the django.contrib.staticfiles app is installed and included in your INSTALLED_APPS list in settings.py.
+
+Ensure that the django.contrib.staticfiles.urls module is included in your urls.py file.
+
+If you are running the development server, make sure that the django.contrib.staticfiles.views.serve view is added to your urls.py file to handle serving static files during development.
+
+Try these steps and see if it resolves the issue. If not, you can provide more details about the error message you are receiving.
